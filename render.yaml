@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: ws-pulsioximetro
+    env: node
+    plan: free
+    buildCommand: npm install
+    startCommand: node index.js # o cambia a tu archivo si se llama distinto
+    autoDeploy: true
+    envVars:
+      - key: NODE_VERSION
+        value: 18

@@ -1,21 +1,37 @@
+import express from "express";
 import { createServer } from "http";
 import { Server } from "socket.io";
 
-const port = process.env.PORT || 3000
+const PORT = process.env.PORT || 3000;
 
-const httpServer = createServer();
+// Configura Express
+const app = express();
+
+app.get("/", (req, res) => {
+  res.send("Servidor WebSocket activo 🚀");
+});
+
+const httpServer = createServer(app);
+
+// Configura Socket.IO con CORS explícito
 const io = new Server(httpServer, {
   cors: {
-    origin: "*"
+    origin: "*", // Puedes especificar tu frontend aquí para mayor seguridad
+    methods: ["GET", "POST"]
   }
-})
+});
 
-io.on('connection', (socket) => {
-    socket.on('message', (arg) => {
-        console.log(arg)
-    })
-})
+// Evento de conexión
+io.on("connection", (socket) => {
+  console.log("Cliente conectado ✔️");
 
-httpServer.listen(port, '0.0.0.0', () => {
-  console.log(`Servidor activo en puerto ${port}`);
+  socket.on("message", (arg) => {
+    console.log("Mensaje recibido:", arg);
+    // Puedes hacer algo con el mensaje aquí
+  });
+});
+
+// Escucha en 0.0.0.0 y el puerto asignado por Render
+httpServer.listen(PORT, "0.0.0.0", () => {
+  console.log(`Servidor escuchando en puerto ${PORT}`);
 });
