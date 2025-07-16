@@ -16,6 +16,6 @@ io.on('connection', (socket) => {
     })
 })
 
-httpServer.listen(port, () => {
-  console.log(`Servidor escuchando en el puerto ${port}`);
-})
+httpServer.listen(port, '0.0.0.0', () => {
+  console.log(`Servidor activo en puerto ${port}`);
+});
