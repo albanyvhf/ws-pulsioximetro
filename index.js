@@ -34,6 +34,6 @@ io.on("connection", (socket) => {
   });
 });
 
-httpServer.listen(PORT, "192.168.0.4", () => {
+httpServer.listen(PORT, "0.0.0.0", () => {
   console.log(`Servidor escuchando en puerto ${PORT}`);
 });
